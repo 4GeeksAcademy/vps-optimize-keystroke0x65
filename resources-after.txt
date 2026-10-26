@@ -1,0 +1,100 @@
+================================================================================
+  VPS RESOURCE REPORT - AFTER OPTIMIZATION
+================================================================================
+  Host:      bc-vps-466 (DigitalOcean Droplet)
+  User:      root
+  Captured:  2026-10-26 10:54 UTC (after reboot)
+================================================================================
+
+
+STATUS
+--------------------------------------------------------------------------------
+  >> The VPS is optimized and READY for company deployments. <<
+
+  Unneeded background services were disabled and the server was rebooted
+  cleanly. It now runs fewer services and has more free memory, leaving
+  ~686 MiB RAM and ~22 GB disk available for applications.
+
+
+SUMMARY (BEFORE vs AFTER)
+--------------------------------------------------------------------------------
+                         BEFORE            AFTER             CHANGE
+  OS ................... Ubuntu 22.04.5    Ubuntu 22.04.5    -
+  RAM used ............. 178 MiB           128 MiB           -50 MiB
+  RAM free ............. 84 MiB            491 MiB           +407 MiB
+  RAM available ........ 615 MiB           686 MiB           +71 MiB
+  Swap ................. none              none              -
+  Disk used (/) ........ 2.5 GB (11%)      2.5 GB (11%)      no change
+  Disk free (/) ........ 22 GB             22 GB             no change
+  Running services ..... 20                16                -4
+
+
+CHANGES MADE
+--------------------------------------------------------------------------------
+  Disabled and stopped (systemctl disable --now):
+    - multipathd.service           Multi-path storage driver (not used on a
+                                   single-disk VPS)
+    - unattended-upgrades.service  Automatic background package upgrades
+    - packagekit.service           GUI/desktop package management daemon
+    - snapd.service + snapd.socket Snap package daemon
+
+  No longer running after reboot:
+    - multipathd, packagekit, polkit, unattended-upgrades
+
+  Server rebooted to confirm the changes stick.
+
+
+1. OPERATING SYSTEM
+--------------------------------------------------------------------------------
+  OS:      Ubuntu 22.04.5 LTS (Jammy Jellyfish)
+  Kernel:  5.15.0-198-generic x86_64
+
+
+2. MEMORY (RAM)
+--------------------------------------------------------------------------------
+$ free -h
+
+                 total     used     free   shared  buff/cache  available
+  Mem:           957Mi    128Mi    491Mi    3.0Mi       337Mi      686Mi
+  Swap:             0B       0B       0B
+
+
+3. DISK
+--------------------------------------------------------------------------------
+$ df -h
+
+  Filesystem      Size   Used  Avail  Use%  Mounted on
+  /dev/vda1        25G   2.5G    22G   11%  /
+  /dev/vda15      105M   6.1M    99M    6%  /boot/efi
+  tmpfs            96M   984K    95M    2%  /run
+  tmpfs           479M      0   479M    0%  /dev/shm
+  tmpfs           5.0M      0   5.0M    0%  /run/lock
+  tmpfs            96M   4.0K    96M    1%  /run/user/0
+
+
+4. RUNNING SERVICES (16)
+--------------------------------------------------------------------------------
+$ systemctl list-units --type=service --state=running
+
+  All services: LOAD = loaded | ACTIVE = active | SUB = running
+
+  SERVICE                       DESCRIPTION
+  ----------------------------  ------------------------------------------------
+  cron.service                  Regular background program processing daemon
+  dbus.service                  D-Bus System Message Bus
+  droplet-agent.service         The DigitalOcean Droplet Agent
+  getty@tty1.service            Getty on tty1
+  networkd-dispatcher.service   Dispatcher daemon for systemd-networkd
+  rsyslog.service               System Logging Service
+  serial-getty@ttyS0.service    Serial Getty on ttyS0
+  snapd.service                 Snap Daemon
+  ssh.service                   OpenBSD Secure Shell server
+  systemd-journald.service      Journal Service
+  systemd-logind.service        User Login Management
+  systemd-networkd.service      Network Configuration
+  systemd-resolved.service      Network Name Resolution
+  systemd-timesyncd.service     Network Time Synchronization
+  systemd-udevd.service         Rule-based Manager for Device Events and Files
+  user@0.service                User Manager for UID 0
+
+================================================================================

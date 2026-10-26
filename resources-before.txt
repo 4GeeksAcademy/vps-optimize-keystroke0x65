@@ -1,0 +1,95 @@
+================================================================================
+  VPS RESOURCE INVENTORY - BEFORE CLEANUP
+================================================================================
+  Host:      bc-vps-466 (DigitalOcean Droplet)
+  User:      root
+  Captured:  2026-10-26
+================================================================================
+
+
+SUMMARY
+--------------------------------------------------------------------------------
+  OS ............... Ubuntu 22.04.5 LTS (Jammy Jellyfish)
+  RAM .............. 957 MiB total | 178 MiB used | 615 MiB available
+  Swap ............. none (0B)
+  Disk (/) ......... 25 GB total   | 2.5 GB used  | 22 GB free  (11% used)
+  Running services . 20
+
+
+1. OPERATING SYSTEM
+--------------------------------------------------------------------------------
+$ lsb_release -a
+
+  Distributor ID:  Ubuntu
+  Description:     Ubuntu 22.04.5 LTS
+  Release:         22.04
+  Codename:        jammy
+
+$ cat /etc/os-release
+
+  PRETTY_NAME="Ubuntu 22.04.5 LTS"
+  NAME="Ubuntu"
+  VERSION_ID="22.04"
+  VERSION="22.04.5 LTS (Jammy Jellyfish)"
+  VERSION_CODENAME=jammy
+  ID=ubuntu
+  ID_LIKE=debian
+  HOME_URL="https://www.ubuntu.com/"
+  SUPPORT_URL="https://help.ubuntu.com/"
+  BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+  PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+  UBUNTU_CODENAME=jammy
+
+
+2. MEMORY (RAM)
+--------------------------------------------------------------------------------
+$ free -h
+
+                 total     used     free   shared  buff/cache  available
+  Mem:           957Mi    178Mi     84Mi    4.0Mi       694Mi      615Mi
+  Swap:             0B       0B       0B
+
+
+3. DISK
+--------------------------------------------------------------------------------
+$ df -h
+
+  Filesystem      Size   Used  Avail  Use%  Mounted on
+  /dev/vda1        25G   2.5G    22G   11%  /
+  /dev/vda15      105M   6.1M    99M    6%  /boot/efi
+  tmpfs            96M   1.1M    95M    2%  /run
+  tmpfs           479M      0   479M    0%  /dev/shm
+  tmpfs           5.0M      0   5.0M    0%  /run/lock
+  tmpfs            96M   4.0K    96M    1%  /run/user/0
+
+
+4. RUNNING SERVICES (20)
+--------------------------------------------------------------------------------
+$ systemctl list-units --type=service --state=running
+
+  All services: LOAD = loaded | ACTIVE = active | SUB = running
+
+  SERVICE                       DESCRIPTION
+  ----------------------------  ------------------------------------------------
+  cron.service                  Regular background program processing daemon
+  dbus.service                  D-Bus System Message Bus
+  droplet-agent.service         The DigitalOcean Droplet Agent
+  getty@tty1.service            Getty on tty1
+  multipathd.service            Device-Mapper Multipath Device Controller
+  networkd-dispatcher.service   Dispatcher daemon for systemd-networkd
+  packagekit.service            PackageKit Daemon
+  polkit.service                Authorization Manager
+  rsyslog.service               System Logging Service
+  serial-getty@ttyS0.service    Serial Getty on ttyS0
+  snapd.service                 Snap Daemon
+  ssh.service                   OpenBSD Secure Shell server
+  systemd-journald.service      Journal Service
+  systemd-logind.service        User Login Management
+  systemd-networkd.service      Network Configuration
+  systemd-resolved.service      Network Name Resolution
+  systemd-timesyncd.service     Network Time Synchronization
+  systemd-udevd.service         Rule-based Manager for Device Events and Files
+  unattended-upgrades.service   Unattended Upgrades Shutdown
+  user@0.service                User Manager for UID 0
+
+================================================================================
